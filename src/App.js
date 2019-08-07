@@ -12,8 +12,8 @@ class App extends React.Component {
   render() {
     return (
       <HashRouter>
-        <Route path="/" component={Index} />
-        <Route path="/testimonial" component={EditOrAddTestimonial} />
+        <Route path="/" exact component={Index} />
+        <Route path="/testimonial" exact component={EditOrAddTestimonial} />
       </HashRouter>
     )
   }
