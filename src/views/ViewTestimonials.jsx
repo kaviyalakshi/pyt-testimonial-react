@@ -12,7 +12,8 @@ import Config from '../Config';
 class App extends React.Component {
 
   state = {
-    testimonials: []
+    testimonials: [],
+    hasError: false
   }
 
   componentDidMount () {
@@ -67,6 +68,9 @@ class App extends React.Component {
           });
         })
       }).catch(error => {
+        this.setState({
+          hasError: true
+        })
         console.log(error)
       })
   }
@@ -78,8 +82,14 @@ class App extends React.Component {
            <h1 className="col-md-8">Testimonals</h1>
            <Link to="/testimonial" className="col-md-2 pull-right btn btn-success">Add Testimonial</Link>
         </div>
-        <table id="table" class="display">
-        </table>
+        {
+          this.state.hasError ? (
+            <h1>An error occured while fetching testimonials</h1>
+          ) : (
+            <table id="table" class="display">
+            </table>
+          )
+        }
       </div>
     );
   }
