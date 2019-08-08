@@ -61,9 +61,9 @@ class App extends React.Component {
             <div className="form-group">
               <label>Departing City</label>
               <select name="DEP_CITY" className="form-control">
-                <option>Australia</option>
-                <option>Bali</option>
-                <option>Japan</option>
+                <option>Chennai</option>
+                <option>Bangalore</option>
+                <option>Coimbatore</option>
               </select>
             </div>
             <b>Rating</b><br />
@@ -88,26 +88,26 @@ class App extends React.Component {
             <input type="url" name="facebookLink" class="form-control" />
             <br />
             <b>Profile Image</b>
-            <input type="file" name="profileImage" class="form-control" />
+            <input type="url" name="profileImage" class="form-control" />
             <br />
             <b>Cover Image</b>
-            <input type="file" name="coverImage" class="form-control" />
+            <input type="url" name="coverImage" class="form-control" />
             <br />
             <b>Region</b>
             <input type="text" name="region" class="form-control" />
             <br />
             <b>Destination</b>
             <select name="Dest">
-              <option>Chennai</option>
-              <option>Bangalore</option>
-              <option>Coimbatore</option>
+              <option>Australia</option>
+              <option>Bali</option>
+              <option>Japan</option>
             </select>
             <br />
             <b>Travel Type</b>
             <input type="text" name="tT_Type" class="form-control" />
             <br />
             <b>PDF</b>
-            <input type="file" name="pdf" class="form-control" />
+            <input type="url" name="pdf" class="form-control" />
             <br />
             <b>Sales Operator Email</b>
             <input type="email" name="soemail" class="form-control" />
@@ -129,7 +129,7 @@ class App extends React.Component {
             <br />
             <b>centreFaceCroppedCoverImage</b>
             <input
-              type="file"
+              type="url"
               name="centreFaceCroppedCoverImage"
               class="form-control"
             />
