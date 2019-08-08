@@ -13,7 +13,7 @@ class App extends React.Component {
     formData.forEach(function(value, key) {
       object[key] = value;
     });
-    object.rating = this.state.rating;
+    object.star = this.state.rating;
     var json = JSON.stringify(object);
     console.log(json);
   };
@@ -35,20 +35,20 @@ class App extends React.Component {
             <input type="text" name="itineraryId" class="form-control" />
             <br />
             <b>First Name</b>
-            <input type="text" name="fName" class="form-control" />
+            <input type="text" name="firstName" class="form-control" />
             <br />
             <b>Middle Name</b>
-            <input type="text" name="mName" class="form-control" />
+            <input type="text" name="middleName" class="form-control" />
             <br />
             <b>Last Name</b>
-            <input type="text" name="lName" class="form-control" />
+            <input type="text" name="lastName" class="form-control" />
             <br />
             <b>Departing Date</b>
             <input type="date" name="DEP_DATE" class="form-control" />
             <br />
             <div className="form-group">
               <label>Departing City</label>
-              <select name="dep_city" className="form-control">
+              <select name="DEP_CITY" className="form-control">
                 <option>Australia</option>
                 <option>Bali</option>
                 <option>Japan</option>
@@ -73,7 +73,7 @@ class App extends React.Component {
             <input type="text" name="review" class="form-control" />
             <br />
             <b>Fb Link</b>
-            <input type="url" name="fbLink" class="form-control" />
+            <input type="url" name="facebookLink" class="form-control" />
             <br />
             <b>Profile Image</b>
             <input type="file" name="profileImage" class="form-control" />
@@ -85,14 +85,14 @@ class App extends React.Component {
             <input type="text" name="region" class="form-control" />
             <br />
             <b>Destination</b>
-            <select name="Desti">
+            <select name="Dest">
               <option>Chennai</option>
               <option>Bangalore</option>
               <option>Coimbatore</option>
             </select>
             <br />
             <b>Travel Type</b>
-            <input type="text" name="ttype" class="form-control" />
+            <input type="text" name="tT_Type" class="form-control" />
             <br />
             <b>PDF</b>
             <input type="file" name="pdf" class="form-control" />
@@ -121,9 +121,6 @@ class App extends React.Component {
               name="centreFaceCroppedCoverImage"
               class="form-control"
             />
-            <br />
-            <b>_class</b>
-            <input type="text" name="_class" class="form-control" />
             <br />
             <div className="row">
               <button type="button" className="col-md-4 btn btn-primary">
