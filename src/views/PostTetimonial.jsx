@@ -15,7 +15,7 @@ class App extends React.Component {
     formData: {}
   };
 
-  componentDidMount () {
+  componentDidMount() {
     if (queryString.parse(this.props.history.location.search).id) {
       Axios.get(Config.apiUrlPrefix + `/testimonials/${queryString.parse(this.props.history.location.search).id}`)
         .then(respone => {
