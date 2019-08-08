@@ -1,5 +1,4 @@
 import React from "react";
-import Rating from "react-rating";
 
 class App extends React.Component {
   state = {

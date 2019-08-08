@@ -6,6 +6,18 @@ class App extends React.Component {
     rating: 0
   };
 
+  /**
+   * Initializes form data by retrieving
+   * testimonail data from API
+   */
+  initializeForm = tesimonialId => {
+    // TODO: Run API call
+    // TODO: Init Form
+  }
+
+  /**
+   * Submits testimonial form
+   */
   handleFormSubmit = event => {
     event.preventDefault();
     let formData = new FormData(event.target);
@@ -15,7 +27,7 @@ class App extends React.Component {
     });
     object.star = this.state.rating;
     var json = JSON.stringify(object);
-    console.log(json);
+    // TODO: Send data to backend
   };
 
   render() {
