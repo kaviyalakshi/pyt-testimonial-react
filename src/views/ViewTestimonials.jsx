@@ -2,6 +2,13 @@ import React from "react";
 import ReactDOM from 'react-dom';
 import Axios from "axios";
 
+import {
+  Link,
+  withRouter
+} from 'react-router-dom';
+
+import Config from '../Config';
+
 class App extends React.Component {
 
   state = {
@@ -13,45 +20,33 @@ class App extends React.Component {
   }
 
   viewOrEditTesimonial = (testimonialId) => {
-    console.log(testimonialId)
+    this.props.history.push(`/testimonial/?id=${testimonialId}`)
   }
 
   fetchAndSetTestimonials = () => {
-    Axios.get('https://swapi.co/api/people')
+    Axios.get(Config.apiUrlPrefix + '/testimonials')
       .then((response) => {
         this.setState({
-          testimonials: response.data.results
+          testimonials: response.data
         }, () => {
-          let dataSet = []
-          window.$.each(this.state.testimonials, function (index, value) {
-                var tempArray = [];
-                for (var o in value) {
-                    tempArray.push(value[o]);
-                }
-                dataSet.push(tempArray);
-            })
           window.$('#table').dataTable({
-            data: dataSet,
+            data: this.state.testimonials,
             columns: [
               {
-                title: 'Name',
-                id: 'name'
+                title: 'Itinerary ID',
+                data: 'itineraryId'
               },
               {
-                title: 'Height',
-                id: 'height'
+                title: 'Customer Name',
+                data: 'firstName'
               },
               {
-                title: 'Mass',
-                id: 'mass'
+                title: 'Date of Departure',
+                data: 'dateOfDeparture'
               },
               {
-                title: 'Hair Color',
-                id: 'hair_color'
-              },
-              {
-                title: 'Skin Color',
-                id: 'skin_color'
+                title: 'Destination',
+                data: 'destination'
               },
               {
                 title: 'Actions',
@@ -60,11 +55,10 @@ class App extends React.Component {
             ],
             columnDefs: [
               {
-                targets: 5,
+                targets: 4,
                 createdCell: (td, cellData) => {
-                  console.log(cellData)
                   ReactDOM.render(
-                    <button className="btn btn-primary" onClick={() => console.log('hello')}>View Or Edit</button>,
+                    <button className="btn btn-primary" onClick={() => this.viewOrEditTesimonial(cellData.testimonialId)}>View Or Edit</button>,
                     td
                   )
                 }
@@ -79,7 +73,11 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="">
+      <div className="container testimonial-container">
+        <div className="row" style={{marginBottom: '3rem'}}>
+           <h1 className="col-md-8">Testimonals</h1>
+           <Link to="/testimonial" className="col-md-2 pull-right btn btn-success">Add Testimonial</Link>
+        </div>
         <table id="table" class="display">
         </table>
       </div>
@@ -87,4 +85,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withRouter(App);
