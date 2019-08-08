@@ -1,18 +1,40 @@
 import React from "react";
 import Rating from "react-rating";
 
+import {
+  withRouter
+} from 'react-router-dom';
+
+import queryString from 'query-string';
+import Axios from "axios";
+import Config from "../Config";
+
 class App extends React.Component {
   state = {
-    rating: 0
+    rating: 0,
+    formData: {}
   };
 
-  /**
-   * Initializes form data by retrieving
-   * testimonail data from API
-   */
-  initializeForm = tesimonialId => {
-    // TODO: Run API call
-    // TODO: Init Form
+  componentDidMount () {
+    if (queryString.parse(this.props.history.location.search).id) {
+      Axios.get(Config.apiUrlPrefix + `/testimonials/${queryString.parse(this.props.history.location.search).id}`)
+        .then(respone => {
+          if (respone.data.data) {
+            this.setState({
+              formData: respone.data.data
+            }, () => {
+              Object.keys(this.state.formData).forEach((key) => {
+                // document.getElementById('testimonial-form').elements[key].value = this.state.formData[key];
+                if (document.getElementById('testimonial-form').elements[key]) {
+                  document.getElementById('testimonial-form').elements[key].value = this.state.formData[key];
+                }
+              })
+            })
+          }
+        }).catch(error => {
+          console.log(error)
+        })
+    }
   }
 
   /**
@@ -27,7 +49,12 @@ class App extends React.Component {
     });
     object.star = this.state.rating;
     var json = JSON.stringify(object);
-    // TODO: Send data to backend
+    Axios.post(Config.apiUrlPrefix + '/testimonials', json)
+      .then(response => {
+        console.log(response)
+      }).catch(error => {
+        console.log(error)
+      })
   };
 
   render() {
@@ -41,98 +68,99 @@ class App extends React.Component {
             onSubmit={this.handleFormSubmit}
             action="post"
             className="form-group"
+            id="testimonial-form"
             style={{ textAlign: "left" }}
           >
             <b>Itinerary ID </b>
-            <input type="text" name="itineraryId" class="form-control" />
+            <input type="text" name="itineraryId" className="form-control" />
             <br />
             <b>First Name</b>
-            <input type="text" name="firstName" class="form-control" />
+            <input type="text" name="firstName" className="form-control" />
             <br />
             <b>Middle Name</b>
-            <input type="text" name="middleName" class="form-control" />
+            <input type="text" name="middleName" className="form-control" />
             <br />
             <b>Last Name</b>
-            <input type="text" name="lastName" class="form-control" />
+            <input type="text" name="lastName" className="form-control" />
             <br />
             <b>Departing Date</b>
-            <input type="date" name="DEP_DATE" class="form-control" />
+            <input type="date" name="dateOfDeparture" className="form-control" />
             <br />
             <div className="form-group">
               <label>Departing City</label>
-              <select name="DEP_CITY" className="form-control">
+              <select name="departureCity" className="form-control">
                 <option>Chennai</option>
                 <option>Bangalore</option>
                 <option>Coimbatore</option>
               </select>
             </div>
             <b>Rating</b><br />
-            <Rating onClick={value => this.setState({ rating: value })} />
+            <Rating rating={this.state.rating} onClick={value => this.setState({ rating: value })} />
             <br /><br />
             <b>Time Of Review </b>
-            <input type="date" name="timeOfReview" class="form-control" />
+            <input type="date" name="timeOfReview" className="form-control" />
             <br />
             <b>Short Review</b>
-            <input type="text" name="shortReview" class="form-control" />
+            <input type="text" name="shortReview" className="form-control" />
             <br />
             <b>Shortest Review</b>
-            <input type="text" name="shortestReview" class="form-control" />
+            <input type="text" name="shortestReview" className="form-control" />
             <br />
             <b>Long Review</b>
-            <textarea name="longReview" class="form-control" />
+            <textarea name="longReview" className="form-control" />
             <br />
             <b>Review</b>
-            <input type="text" name="review" class="form-control" />
+            <input type="text" name="review" className="form-control" />
             <br />
             <b>Fb Link</b>
-            <input type="url" name="facebookLink" class="form-control" />
+            <input type="url" name="facebookLink" className="form-control" />
             <br />
             <b>Profile Image</b>
-            <input type="url" name="profileImage" class="form-control" />
+            <input type="url" name="profileImage" className="form-control" />
             <br />
             <b>Cover Image</b>
-            <input type="url" name="coverImage" class="form-control" />
+            <input type="url" name="coverImage" className="form-control" />
             <br />
             <b>Region</b>
-            <input type="text" name="region" class="form-control" />
+            <input type="text" name="region" className="form-control" />
             <br />
             <b>Destination</b>
-            <select name="Dest">
+            <select name="destination">
               <option>Australia</option>
               <option>Bali</option>
               <option>Japan</option>
             </select>
             <br />
             <b>Travel Type</b>
-            <input type="text" name="tT_Type" class="form-control" />
+            <input type="text" name="tripType" className="form-control" />
             <br />
             <b>PDF</b>
-            <input type="url" name="pdf" class="form-control" />
+            <input type="url" name="pdf" className="form-control" />
             <br />
             <b>Sales Operator Email</b>
-            <input type="email" name="soemail" class="form-control" />
+            <input type="email" name="salesOwnerEmail" className="form-control" />
             <br />
             <b>Journal Links</b>
-            <input type="url" name="jrnllnks" class="form-control" />
+            <input type="url" name="journalLinks" className="form-control" />
             <br />
             <b>tstmlptos</b>
-            <input type="text" name="tstmlptos" class="form-control" />
+            <input type="text" name="testimonialPhotos" className="form-control" />
             <br />
             <b>isSOTagged</b>
-            <input type="text" name="isSOTagged" class="form-control" />
+            <input type="text" name="sotagged" className="form-control" />
             <br />
             <b>coverImageWidth</b>
-            <input type="text" name="coverImageWidth" class="form-control" />
+            <input type="text" name="coverImageWidth" className="form-control" />
             <br />
             <b>coverImageHeight</b>
-            <input type="text" name="coverImageHeight" class="form-control" />
+            <input type="text" name="coverImageHeight" className="form-control" />
             <br />
             <b>centreFaceCroppedCoverImage</b>
             <input
               type="url"
               name="centreFaceCroppedCoverImage"
-              class="form-control"
-            />
+              className="form-control"
+            /> 
             <br />
             <div className="row">
               <button type="button" className="col-md-4 btn btn-primary">
@@ -146,4 +174,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withRouter(App);
